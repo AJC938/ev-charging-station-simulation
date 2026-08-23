@@ -22,7 +22,7 @@ A Java-based simulation that compares <strong>FCFS + Static Power</strong> with 
 
 This project models a busy EV charging station where heterogeneous vehicles compete for a limited number of charging bays and a constrained grid-power budget.
 
-The project is intentionally designed as an **Advanced Java / Object-Oriented Programming** system rather than a simple GUI exercise. The implementation combines object-oriented modeling, scheduling policies, reservation management, charging compatibility, resource allocation, deterministic simulation, Swing visualization, regression testing, and continuous integration.
+The project is designed as an **Advanced Java / Object-Oriented Programming** system rather than a simple GUI exercise. It combines object-oriented modeling, scheduling policies, reservation management, charging compatibility, resource allocation, deterministic simulation, Swing visualization, regression testing, and continuous integration.
 
 The station is evaluated under two strategies using the same deterministic workload:
 
@@ -64,7 +64,7 @@ Strategy comparison
 | **Polymorphism** | Type-specific priority and compatibility behavior |
 | **Interfaces** | `Prioritizable`, `HighVoltageCapable` |
 | **Encapsulation** | Private state with controlled domain methods |
-| **Collections** | `List`, `Queue`, `Map` and related standard-library structures |
+| **Collections** | `List`, `Queue`, `Map` and standard-library collections |
 | **Copy semantics** | Shallow/deep-copy behavior |
 | **GUI** | Java Swing dashboard |
 | **Simulation** | 1,440-minute deterministic workload |
@@ -79,19 +79,9 @@ Strategy comparison
 
 The abstract `Vehicle` model captures common battery state, arrival time, charging requirements, reservation state, waiting time, and priority information.
 
-Concrete vehicle types include:
-
-- `PrivateCar`
-- `Taxi`
-- `DeliveryVan`
-- `PoliceVehicle`
-- `Ambulance`
-- `ElectricBus`
-- `Highlander`
+Concrete vehicle types include `PrivateCar`, `Taxi`, `DeliveryVan`, `PoliceVehicle`, `Ambulance`, `ElectricBus`, and `Highlander`.
 
 ### Charger Layer
-
-The charger hierarchy models different charging capabilities:
 
 | Charger | Maximum Power |
 |---|---:|
@@ -103,17 +93,7 @@ The charger hierarchy models different charging capabilities:
 
 ### Station Layer
 
-`ChargingStation` coordinates:
-
-- arriving vehicles
-- charger compatibility
-- queueing and dispatch
-- reservations
-- charging progression
-- station capacity
-- grid-power constraints
-- phase-specific scheduling policy
-- operational statistics
+`ChargingStation` coordinates arriving vehicles, charger compatibility, queueing, reservations, charging progression, grid constraints, scheduling policy, and operational statistics.
 
 `ReservationSystem` manages reserved charging slots and validates reservation access.
 
@@ -133,32 +113,30 @@ Waiting-time boosts are applied at configured thresholds:
 - 40 minutes → +2 priority
 - 60 minutes → +3 maximum
 
-This makes the second strategy sensitive to both vehicle characteristics and queueing behavior.
-
 ## Simulation Model
 
 The console simulation represents **1,440 minutes** of station operation. A deterministic seed is used so both strategies receive the same workload, making the comparison reproducible.
 
-### Representative Results
+### Verified Local Run
+
+Using seed `3642034`:
 
 | Metric | Phase 1 | Phase 2 |
 |---|---:|---:|
 | Vehicles arrived | 303 | 303 |
-| Vehicles served | 151 | 166 |
-| Lost customers | 152 | 137 |
-| Critical incidents | 42 | 24 |
-| Average wait | 28.6 min | 14.0 min |
-| Grid utilization | 68.9% | 87.2% |
+| Vehicles served | 151 | 187 |
+| Lost customers | 146 | 116 |
+| Critical incidents | 42 | 32 |
+| Average wait | 28.6 min | 7.5 min |
+| Grid utilization | 68.9% | 86.0% |
 | Reservations | 0 | 117 |
-| Priority boosts | 0 | 310 |
+| Priority boosts | 0 | 162 |
 
-### Key Observation
-
-Under the representative simulation run, the priority + dynamic strategy serves more vehicles while reducing average waiting time and critical incidents, at the cost of a higher level of grid utilization.
+**Observation:** the priority + dynamic strategy served 36 more vehicles and reduced average waiting time by 21.2 minutes, while increasing grid utilization by 17.1 percentage points.
 
 ## GUI
 
-The Swing dashboard visualizes the simulated station state, including charger bays, queue information, battery state, priority, event activity, and operational KPIs.
+The Swing dashboard visualizes the simulated station state, including the simulation clock, queue, served vehicles, active power, grid utilization, selected scheduling mode, and event activity.
 
 ![Simulation dashboard](assets/simulation-dashboard.png)
 
@@ -211,7 +189,7 @@ EV-Charging-Station-Simulation/
 
 ## Requirements
 
-- **JDK 17+** recommended
+- **JDK 17+**
 - Java Swing (included with the standard JDK)
 - No third-party libraries
 
@@ -224,30 +202,30 @@ mkdir -p build/classes
 javac -d build/classes $(find src -name '*.java')
 ```
 
-### Run the console simulation
+### Console simulation
 
 ```bash
 java -cp build/classes evcharging.Main 3642034
 ```
 
-### Run the GUI
+### GUI
 
 ```bash
 java -cp build/classes evcharging.SimulationGUI
 ```
 
-### Run the regression tests
+### Tests
 
 ```bash
 javac -d build/classes $(find src tests -name '*.java')
 java -cp build/classes tests.DSATest
 ```
 
-> Windows users can compile the project from IntelliJ IDEA or replace the `find` commands with their preferred file-selection method.
+GitHub Actions runs the same compile/test flow and performs a console-simulation smoke test on pushes and pull requests to `main`.
 
 ## Testing & CI
 
-The repository includes a lightweight standard-library regression suite covering:
+The regression suite covers:
 
 - vehicle priority and copy behavior
 - reservation creation and validation
@@ -255,25 +233,13 @@ The repository includes a lightweight standard-library regression suite covering
 - station phase configuration
 - station state progression and grid budget
 
-GitHub Actions compiles the source and tests, runs the regression suite, and performs a console-simulation smoke test on pushes and pull requests to `main`.
-
 ## Engineering Takeaways
 
-This project demonstrates practical application of:
-
-- object-oriented architecture
-- inheritance and polymorphism
-- interface-driven behavior
-- queueing and priority scheduling
-- constrained resource allocation
-- deterministic simulation
-- GUI visualization with Swing
-- regression testing
-- continuous integration
+This project demonstrates practical application of object-oriented architecture, inheritance, polymorphism, interfaces, queueing and priority scheduling, constrained resource allocation, deterministic simulation, Swing visualization, regression testing, and continuous integration.
 
 ## Academic Materials
 
-The original proposal, presentation, and other submission artifacts are intentionally excluded from the public repository when they contain student-identification data. This repository keeps the reusable technical implementation, UML artifact, screenshots, and automated verification material.
+The original proposal, presentation, and other submission artifacts are intentionally excluded from the public repository when they contain student-identification data. This repository keeps the technical implementation, UML artifact, screenshots, and automated verification material.
 
 ## Team
 
