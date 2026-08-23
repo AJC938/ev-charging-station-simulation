@@ -1,0 +1,22 @@
+# Java build artifacts
+*.class
+out/
+target/
+build/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# IDE metadata
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Local generated runtime data
+src/registered_users.json
