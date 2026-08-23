@@ -134,17 +134,15 @@ Using seed `3642034`:
 
 **Observation:** the priority + dynamic strategy served 36 more vehicles and reduced average waiting time by 21.2 minutes, while increasing grid utilization by 17.1 percentage points.
 
-## GUI
+## GUI & Architecture Preview
 
-The Swing dashboard visualizes the simulated station state, including the simulation clock, queue, served vehicles, active power, grid utilization, selected scheduling mode, and event activity.
+The Swing dashboard visualizes the simulation clock, queue, served vehicles, active power, grid utilization, scheduling mode, and event activity.
 
-![Simulation dashboard](assets/simulation-dashboard.png)
+![Dashboard preview](assets/dashboard-preview.svg)
 
-![Live simulation state](assets/simulation-live-state.png)
+The project architecture is organized around vehicle and charger abstractions, specialized subclasses, station orchestration, and a reservation service.
 
-## UML Class Diagram
-
-![UML class diagram](docs/uml-class-diagram.jpeg)
+![Object-oriented architecture](docs/uml-class-diagram.svg)
 
 ## Project Structure
 
@@ -154,11 +152,10 @@ EV-Charging-Station-Simulation/
 ├── .gitignore
 ├── assets/
 │   ├── project-banner.svg
-│   ├── simulation-dashboard.png
-│   └── simulation-live-state.png
+│   └── dashboard-preview.svg
 ├── docs/
 │   ├── README.md
-│   └── uml-class-diagram.jpeg
+│   └── uml-class-diagram.svg
 ├── src/
 │   └── evcharging/
 │       ├── Ambulance.java
@@ -225,13 +222,7 @@ GitHub Actions runs the same compile/test flow and performs a console-simulation
 
 ## Testing & CI
 
-The regression suite covers:
-
-- vehicle priority and copy behavior
-- reservation creation and validation
-- charger compatibility
-- station phase configuration
-- station state progression and grid budget
+The regression suite covers vehicle priority and copy behavior, reservation creation and validation, charger compatibility, station phase configuration, and station state progression.
 
 ## Engineering Takeaways
 
@@ -239,7 +230,7 @@ This project demonstrates practical application of object-oriented architecture,
 
 ## Academic Materials
 
-The original proposal, presentation, and other submission artifacts are intentionally excluded from the public repository when they contain student-identification data. This repository keeps the technical implementation, UML artifact, screenshots, and automated verification material.
+The original proposal, presentation, and other submission artifacts are intentionally excluded from the public repository when they contain student-identification data. This repository keeps the technical implementation, architecture diagrams, and automated verification material.
 
 ## Team
 
